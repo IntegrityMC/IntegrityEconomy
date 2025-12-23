@@ -21,12 +21,17 @@ package com.github.integritymc.database;
 
 import com.github.integritymc.Main;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.HashMap;
 
 public class CacheManager {
     @Getter private final HashMap<OfflinePlayer, UserProfile> playerCache = new HashMap<>();
+
+    public CacheManager() {
+        Bukkit.getOnlinePlayers().forEach(this::playerJoin);
+    }
 
     public void playerJoin(OfflinePlayer offlinePlayer) {
         Main.getScheduler().runTaskAsynchronously(() -> {

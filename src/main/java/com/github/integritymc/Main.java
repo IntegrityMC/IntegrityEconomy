@@ -60,12 +60,10 @@ public class Main extends JavaPlugin {
         instance = this;
         adventure = BukkitAudiences.create(this);
         scheduler = SchedulerAPI.init(this);
-        cacheManager = new CacheManager();
 
         saveDefaultConfig();
 
         IntegrityUpdater.init(this);
-        cacheManager.update();
 
         //REMOVE THAT UPDATER IF YOU WANT TO FORK IT (LICENSE CONFLICT) GPLv3-IMCPL
         if (getConfig().getBoolean("Settings.updater", true))
@@ -82,6 +80,10 @@ public class Main extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        //CACHE MANAGER
+        cacheManager = new CacheManager();
+        cacheManager.update();
 
         //REGISTER COMMANDS
         addCommand("balance", new BalanceCommand(), new BalanceCommand());
