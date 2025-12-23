@@ -1,0 +1,39 @@
+Settings:
+  updater: true
+  bstats: true
+
+#Database types: local, mysql
+Database:
+  type: local
+  table-name: integrity_economy
+  mysql:
+    host: localhost
+    port: 3306
+    database: economy
+    username: root
+    password: password
+    useSSL: false
+
+Economy:
+  formatted: "{rounded-money} {currency}"
+  currencyPlural: "Moneys"
+  currencySingolar: "Money"
+  first-join-money: 200
+  save-minutes: 30
+
+Messages:
+  player-offline: "<red>The player is offline!"
+  no-permission: "<red>You don't have the permission!"
+  your-balance: "<red>You have {balance}" #Minimessage - {balance}
+  other-balance: "<red>{player} have {balance}" #MiniMessage - {player} {balance}
+  usage-balance: "<red>Use: /balance [player]</red>"
+  eco-reset: "<red>{player}'s balance resetted." # {player}
+  not-enough: "<red>{player} not have money!"
+  eco-give: "<red>{player} give to {amount}!"
+  eco-remove: "<red>{player} remove to {amount}!"
+  usage-eco: "<red>Usage: /eco <give/remove/reset> <player> [amount]"
+  player-does-not-exist: "<red>This player doesn't exist!"
+  invalid-number: "<red>Invalid number formatting!"
+  pay-self: "<red>You paid {player} {amount}"
+  pay-other: "<red>You received {amount} from {player}!"
+  pay-try-self: "<red>You cannot pay yourself!"

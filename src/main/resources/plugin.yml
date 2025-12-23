@@ -1,0 +1,17 @@
+name: IntegrityEconomy
+version: '${version}'
+main: com.github.integritymc.Main
+api-version: '1.13'
+authors: [ItzFrancy, IntegrityEconomy's contributors]
+description: An advanced plugin to manage your server's economy
+depend: [Vault]
+folia-supported: true
+commands:
+  balance:
+    description: "Displays the player’s current balance"
+    aliases: [bal]
+  eco:
+    description: "Administrative command to modify a player’s balance"
+    aliases: [economy, ie]
+  pay:
+    description: "Sends money to another player"
