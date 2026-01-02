@@ -21,19 +21,25 @@ Economy:
   first-join-money: 200
   save-minutes: 30
 
+#####################################
+#        INTEGRITY - PREFIXES       #
+# Commons:                          #
+#  - {prefix} > Display prefix      #
+#####################################
 Messages:
-  player-offline: "<red>The player is offline!"
-  no-permission: "<red>You don't have the permission!"
-  your-balance: "<red>You have {balance}" #Minimessage - {balance}
-  other-balance: "<red>{player} have {balance}" #MiniMessage - {player} {balance}
-  usage-balance: "<red>Use: /balance [player]</red>"
-  eco-reset: "<red>{player}'s balance resetted." # {player}
-  not-enough: "<red>{player} not have money!"
-  eco-give: "<red>{player} give to {amount}!"
-  eco-remove: "<red>{player} remove to {amount}!"
-  usage-eco: "<red>Usage: /eco <give/remove/reset> <player> [amount]"
-  player-does-not-exist: "<red>This player doesn't exist!"
-  invalid-number: "<red>Invalid number formatting!"
-  pay-self: "<red>You paid {player} {amount}"
-  pay-other: "<red>You received {amount} from {player}!"
-  pay-try-self: "<red>You cannot pay yourself!"
+  prefix: "<color:#8291ff><b>IE</b></color>" # NO COMMONS
+  player-offline: "{prefix} <gradient:#c2ccff:#d6e6ff>The player is offline!</gradient>"
+  no-permission: "{prefix} <gradient:#c2ccff:#d6e6ff>You don't have the permission!</gradient>"
+  your-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>You have {balance}</gradient>" # COMMONS - {balance}
+  other-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>{player} have {balance}</gradient>" # COMMONS - {player} - {balance}
+  usage-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /balance [player]</gradient>"
+  eco-reset: "{prefix} <gradient:#c2ccff:#d6e6ff>{player}'s balance has been resetted</gradient>" # COMMONS - {player}
+  not-enough: "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>" # COMMONS - {player}
+  eco-give: "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
+  eco-remove: "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
+  usage-eco: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset> <player> [amount]</gradient>"
+  player-does-not-exist: "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>"
+  invalid-number: "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>"
+  pay-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
+  pay-other: "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
+  pay-try-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You cannot pay yourself!</gradient>"

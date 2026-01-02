@@ -31,9 +31,11 @@ import java.util.logging.Level;
 
 public class DataManager {
     @Getter private Connection connection;
+    private final Object sqliteSupport = new Object();
+    private String typeData;
 
     public void init() {
-        String typeData = Main.getInstance().getConfig().getString("Database.type", "local");
+        typeData = Main.getInstance().getConfig().getString("Database.type", "local");
         Main.getInstance().getLogger().log(Level.INFO, "Loading database! -> Pending");
 
         if (typeData.equalsIgnoreCase("local"))
@@ -106,7 +108,7 @@ public class DataManager {
     //FUNCTIONS
     @SneakyThrows
     public boolean existsPlayer(OfflinePlayer player) {
-        synchronized (getConnection()) {
+        synchronized (sync()) {
             PreparedStatement statement = getConnection().prepareStatement(
                     "SELECT * FROM "+Main.getInstance().getConfig().getString("Database.table-name", "integrity_economy")+" WHERE name = ?"
             );
@@ -125,7 +127,7 @@ public class DataManager {
 
     @SneakyThrows
     public void createAccount(OfflinePlayer player, double amount) {
-        synchronized (getConnection()) {
+        synchronized (sync()) {
             if (existsPlayer(player)) return;
 
             String table = Main.getInstance().getConfig().getString("Database.table-name", "integrity_economy");
@@ -143,7 +145,7 @@ public class DataManager {
 
     @SneakyThrows
     public double getBalance(OfflinePlayer player) {
-        synchronized (getConnection()) {
+        synchronized (sync()) {
             String table = Main.getInstance().getConfig().getString("Database.table-name", "integrity_economy");
             String sql = "SELECT balance FROM " + table + " WHERE name = ?";
             double balance = 0.0;
@@ -163,7 +165,7 @@ public class DataManager {
 
     @SneakyThrows
     public void updateBalance(OfflinePlayer player, double amount) {
-        synchronized (getConnection()) {
+        synchronized (sync()) {
             String table = Main.getInstance().getConfig().getString("Database.table-name", "integrity_economy");
             String sql = "UPDATE " + table + " SET balance = ? WHERE name = ?";
 
@@ -175,5 +177,10 @@ public class DataManager {
             statement.executeUpdate();
             statement.close();
         }
+    }
+
+    private Object sync() {
+        boolean useLock = typeData.equalsIgnoreCase("local");
+        return useLock ? sqliteSupport : new Object();
     }
 }

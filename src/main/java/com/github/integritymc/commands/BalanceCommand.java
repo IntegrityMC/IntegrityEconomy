@@ -39,17 +39,21 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if (args.length == 0 && (sender instanceof Player player)) {
             Main.getAdventure().player(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.your-balance")
-                .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
             ));
         } else if (args.length == 1) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.other-balance")
-                .replace("{player}", player.getName())
-                .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{player}", player.getName())
+                    .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
             ));
         } else {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-balance")));
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-balance")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+            ));
         }
         
         return false;

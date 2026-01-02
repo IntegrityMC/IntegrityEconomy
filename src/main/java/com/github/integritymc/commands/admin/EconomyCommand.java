@@ -39,7 +39,9 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         // /eco <give/reset/remove> <player> [amount]
         if (!sender.hasPermission("integrity.eco")) {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.no-permission")));
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.no-permission")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+            ));
             return true;
         }
 
@@ -47,13 +49,16 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
 
             if (!Main.getEconomy().hasAccount(player)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
             
             Main.getCacheManager().resetBalance(player);
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-reset")
-                .replace("{player}", player.getName())
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{player}", player.getName())
             ));
         } else if (args.length == 3 && args[0].equalsIgnoreCase("give")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
@@ -61,19 +66,24 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             try {
                 amount = Double.parseDouble(args[2]);
             } catch (NumberFormatException e) {
-                sender.sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "<red>Invalid number formatting!")));
+                sender.sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (!Main.getEconomy().hasAccount(player)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             Main.getEconomy().depositPlayer(player, amount);
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-give")
-                .replace("{player}", player.getName())
-                .replace("{amount}", String.valueOf(amount))
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{player}", player.getName())
+                    .replace("{amount}", String.valueOf(amount))
             ));
         } else if (args.length == 3 && args[0].equalsIgnoreCase("remove")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
@@ -81,29 +91,37 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             try {
                 amount = Double.parseDouble(args[2]);
             } catch (NumberFormatException e) {
-                sender.sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "<red>Invalid number formatting!")));
+                sender.sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (!Main.getEconomy().hasAccount(player)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (!Main.getEconomy().has(player, amount)) {
                 Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough")
-                    .replace("{player}", player.getName())
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                        .replace("{player}", player.getName())
                 ));
                 return true;
             }
 
             Main.getEconomy().withdrawPlayer(player, amount);
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-remove")
-                .replace("{player}", player.getName())
-                .replace("{amount}", String.valueOf(amount))
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{player}", player.getName())
+                    .replace("{amount}", String.valueOf(amount))
             ));
         } else {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco")));
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+            ));
         }
 
         return false;

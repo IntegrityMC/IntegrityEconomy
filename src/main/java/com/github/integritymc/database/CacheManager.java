@@ -66,17 +66,25 @@ public class CacheManager {
     }
 
     public double getBalance(OfflinePlayer offlinePlayer) {
-        if (!playerCache.containsKey(offlinePlayer)) return 0.0;
+        if (!playerCache.containsKey(offlinePlayer)) return Main.getDataManager().getBalance(offlinePlayer);
         return playerCache.get(offlinePlayer).balance();
     }
 
     public void updateBalance(OfflinePlayer offlinePlayer, double amount) {
-        if (!playerCache.containsKey(offlinePlayer)) return;
+        if (!playerCache.containsKey(offlinePlayer)) {
+            if (!Main.getDataManager().existsPlayer(offlinePlayer)) return;
+            Main.getDataManager().updateBalance(offlinePlayer, amount);
+            return;
+        }
         playerCache.put(offlinePlayer, UserProfile.builder().playerName(offlinePlayer.getName()).balance(amount).build());
     }
 
     public void resetBalance(OfflinePlayer offlinePlayer) {
-        if (!playerCache.containsKey(offlinePlayer)) return;
+        if (!playerCache.containsKey(offlinePlayer)) {
+            if (!Main.getDataManager().existsPlayer(offlinePlayer)) return;
+            Main.getDataManager().updateBalance(offlinePlayer, 0);
+            return;
+        }
         playerCache.put(offlinePlayer, UserProfile.builder().playerName(offlinePlayer.getName()).balance(0).build());
     }
 }

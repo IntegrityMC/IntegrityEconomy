@@ -49,27 +49,36 @@ public class PayCommand implements CommandExecutor, TabCompleter {
             try {
                 amount = Double.parseDouble(args[1]);
             } catch (NumberFormatException e) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "<red>Invalid number formatting!")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (target == null || !target.isOnline()) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-offline", "<red>The player is offline!")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-offline", "{prefix} <gradient:#c2ccff:#d6e6ff>The player is offline!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (player.getName().equals(target.getName())) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-try-self", "<red>You cannot pay yourself!")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-try-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You cannot pay yourself!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (!Main.getEconomy().hasAccount(target)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "<red>This player doesn't exist!")));
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "<red>This player doesn't exist!")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
                 return true;
             }
 
             if (!Main.getEconomy().has(target, amount)) {
                 Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                         .replace("{player}", target.getName())
                 ));
                 return true;
@@ -79,10 +88,12 @@ public class PayCommand implements CommandExecutor, TabCompleter {
             Main.getEconomy().depositPlayer(target, amount);
 
             Main.getAdventure().sender(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", target.getName())
                     .replace("{amount}", String.valueOf(amount))
             ));
             Main.getAdventure().sender(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", player.getName())
                     .replace("{amount}", String.valueOf(amount))
             ));
