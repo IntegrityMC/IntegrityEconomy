@@ -77,7 +77,7 @@ public class PayCommand implements CommandExecutor, TabCompleter {
             }
 
             if (!Main.getEconomy().has(target, amount)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough")
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>")
                         .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                         .replace("{player}", target.getName())
                 ));
@@ -87,12 +87,12 @@ public class PayCommand implements CommandExecutor, TabCompleter {
             Main.getEconomy().withdrawPlayer(player, amount);
             Main.getEconomy().depositPlayer(target, amount);
 
-            Main.getAdventure().sender(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self")
+            Main.getAdventure().sender(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", target.getName())
                     .replace("{amount}", String.valueOf(amount))
             ));
-            Main.getAdventure().sender(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other")
+            Main.getAdventure().sender(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other", "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} from {player}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", player.getName())
                     .replace("{amount}", String.valueOf(amount))

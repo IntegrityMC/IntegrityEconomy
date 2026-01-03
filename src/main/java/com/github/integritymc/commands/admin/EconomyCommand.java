@@ -37,9 +37,9 @@ import java.util.List;
 public class EconomyCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
-        // /eco <give/reset/remove> <player> [amount]
+        // /eco <give/reset/remove/set> <player> [amount]
         if (!sender.hasPermission("integrity.eco")) {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.no-permission")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.no-permission", "{prefix} <gradient:#c2ccff:#d6e6ff>You don't have the permission!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
             ));
             return true;
@@ -47,21 +47,23 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
 
         if (args.length == 2 && args[0].equalsIgnoreCase("reset")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+            String playerName = player.getName();
 
-            if (!Main.getEconomy().hasAccount(player)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")
+            if (playerName == null || !Main.getEconomy().hasAccount(player)) {
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>")
                         .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                 ));
                 return true;
             }
             
             Main.getCacheManager().resetBalance(player);
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-reset")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-reset", "{prefix} <gradient:#c2ccff:#d6e6ff>{player}'s balance has been resetted</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{player}", player.getName())
+                    .replace("{player}", playerName)
             ));
         } else if (args.length == 3 && args[0].equalsIgnoreCase("give")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+            String playerName = player.getName();
             double amount;
             try {
                 amount = Double.parseDouble(args[2]);
@@ -72,21 +74,22 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            if (!Main.getEconomy().hasAccount(player)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")
+            if (playerName == null || !Main.getEconomy().hasAccount(player)) {
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>")
                         .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                 ));
                 return true;
             }
 
             Main.getEconomy().depositPlayer(player, amount);
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-give")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-give", "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{player}", player.getName())
+                    .replace("{player}", playerName)
                     .replace("{amount}", String.valueOf(amount))
             ));
         } else if (args.length == 3 && args[0].equalsIgnoreCase("remove")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+            String playerName = player.getName();
             double amount;
             try {
                 amount = Double.parseDouble(args[2]);
@@ -97,29 +100,55 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            if (!Main.getEconomy().hasAccount(player)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist")
+            if (playerName == null || !Main.getEconomy().hasAccount(player)) {
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>")
                         .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                 ));
                 return true;
             }
 
             if (!Main.getEconomy().has(player, amount)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough")
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>")
                         .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                        .replace("{player}", player.getName())
+                        .replace("{player}", playerName)
                 ));
                 return true;
             }
 
             Main.getEconomy().withdrawPlayer(player, amount);
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-remove")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-remove", "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} from {player}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{player}", player.getName())
+                    .replace("{player}", playerName)
+                    .replace("{amount}", String.valueOf(amount))
+            ));
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("set")) {
+            OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+            String playerName = player.getName();
+            double amount;
+            try {
+                amount = Double.parseDouble(args[2]);
+            } catch (NumberFormatException e) {
+                sender.sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.invalid-number", "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
+                return true;
+            }
+
+            if (playerName == null || !Main.getEconomy().hasAccount(player)) {
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
+                return true;
+            }
+
+            Main.getEconomy().depositPlayer(player, amount);
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-set", "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} for {player}!</gradient>")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{player}", playerName)
                     .replace("{amount}", String.valueOf(amount))
             ));
         } else {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco", "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset> <player> [amount]</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
             ));
         }

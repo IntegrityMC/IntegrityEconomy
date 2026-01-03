@@ -36,6 +36,7 @@ Messages:
   eco-reset: "{prefix} <gradient:#c2ccff:#d6e6ff>{player}'s balance has been resetted</gradient>" # COMMONS - {player}
   not-enough: "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>" # COMMONS - {player}
   eco-give: "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
+  eco-set: "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} for {player}!</gradient>" # COMMONS - {player} - {amount}
   eco-remove: "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
   usage-eco: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset> <player> [amount]</gradient>"
   player-does-not-exist: "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>"

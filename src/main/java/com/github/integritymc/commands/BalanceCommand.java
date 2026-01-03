@@ -38,20 +38,28 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if (args.length == 0 && (sender instanceof Player player)) {
-            Main.getAdventure().player(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.your-balance")
+            Main.getAdventure().player(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.your-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>You have {balance}</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
             ));
         } else if (args.length == 1) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+            String playerName = player.getName();
 
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.other-balance")
+            if (playerName == null) {
+                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>")
+                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                ));
+                return true;
+            }
+
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.other-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} have {balance}</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{player}", player.getName())
+                    .replace("{player}", playerName)
                     .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
             ));
         } else {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-balance")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /balance [player]</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
             ));
         }
