@@ -16,7 +16,7 @@
 
 | Command                | Description | Usage                                        | Permission |
 |------------------------|-------------|----------------------------------------------|------------|
-| `/eco` `economy` `/ie` | Administrative command to modify a player’s balance | `/eco <give/reset/remove> <player> [amount]` | `integrity.eco` |
+| `/eco` `economy` `/ie` | Administrative command to modify a player’s balance | `/eco <give/reset/remove/set> <player> [amount]` | `integrity.eco` |
 | `/balance` `/bal`      | Displays the player’s current balance | `/balance <player>`                          |            |
 | `/pay`                 | Sends money to another player | `/pay <player> <amount>`                         |            |
 
