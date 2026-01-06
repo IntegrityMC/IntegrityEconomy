@@ -27,6 +27,8 @@ import org.bukkit.OfflinePlayer;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class DataManager {
@@ -176,6 +178,31 @@ public class DataManager {
 
             statement.executeUpdate();
             statement.close();
+        }
+    }
+
+    @SneakyThrows
+    public List<UserProfile> getAllAccounts() {
+        synchronized (sync()) {
+            String table = Main.getInstance().getConfig().getString("Database.table-name", "integrity_economy");
+            String sql = "SELECT name, balance FROM "+table;
+
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            ArrayList<UserProfile> userProfiles = new ArrayList<>();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                double balance = rs.getDouble("balance");
+
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(name);
+                if (Main.getCacheManager().getPlayerCache().containsKey(offlinePlayer))
+                    balance = Main.getCacheManager().getBalance(offlinePlayer);
+
+                userProfiles.add(UserProfile.builder().playerName(name).balance(balance).build());
+            }
+            statement.close();
+            return userProfiles;
         }
     }
 

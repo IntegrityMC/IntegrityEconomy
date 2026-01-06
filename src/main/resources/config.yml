@@ -21,6 +21,11 @@ Economy:
   first-join-money: 200
   save-minutes: 30
 
+Functions:
+  BalTop:
+    player-per-pages: 10
+    max-pages: 10
+
 #####################################
 #        INTEGRITY - PREFIXES       #
 # Commons:                          #
@@ -38,9 +43,14 @@ Messages:
   eco-give: "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
   eco-set: "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} for {player}!</gradient>" # COMMONS - {player} - {amount}
   eco-remove: "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
-  usage-eco: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset> <player> [amount]</gradient>"
+  usage-eco: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset/set> <player> [amount]</gradient>"
   player-does-not-exist: "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>"
   invalid-number: "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>"
   pay-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
   pay-other: "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
   pay-try-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You cannot pay yourself!</gradient>"
+  usage-baltop: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /baltop [page]</gradient>"
+  baltop-header: "{prefix} <gradient:#c2ccff:#d6e6ff><b>BALANCE TOP</b> • {page}/{max-pages}</gradient>" # COMMONS - {page} {max-pages}
+  baltop-player-format: "<gradient:#c2ccff:#d6e6ff> <color:#8291ff>•</color> {position}° <color:#8291ff>→</color> {player} {balance}</gradient>" # COMMONS - {position} {player} {balance}
+  baltop-footer: "" # COMMONS - {page} {max-pages}
+  exceeded-page: "{prefix} <gradient:#c2ccff:#d6e6ff>You have exceeded the maximum page!</gradient>"

@@ -141,14 +141,14 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            Main.getEconomy().depositPlayer(player, amount);
+            Main.getCacheManager().updateBalance(player, amount);
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-set", "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} for {player}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", playerName)
                     .replace("{amount}", String.valueOf(amount))
             ));
         } else {
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco", "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset> <player> [amount]</gradient>")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco", "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset/set> <player> [amount]</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
             ));
         }
@@ -163,7 +163,7 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             return List.of();
         
         if (args.length == 1) {
-            return List.of("give", "remove", "reset");
+            return List.of("give", "remove", "reset", "set");
         } else if (args.length == 2) {
             for (Player players : Bukkit.getOnlinePlayers()) {
                 playerList.add(players.getName());

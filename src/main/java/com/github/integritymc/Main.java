@@ -19,6 +19,7 @@
 
 package com.github.integritymc;
 
+import com.github.integritymc.commands.BalTopCommand;
 import com.github.integritymc.commands.BalanceCommand;
 import com.github.integritymc.commands.PayCommand;
 import com.github.integritymc.commands.admin.EconomyCommand;
@@ -89,6 +90,7 @@ public class Main extends JavaPlugin {
         addCommand("balance", new BalanceCommand(), new BalanceCommand());
         addCommand("eco", new EconomyCommand(), new EconomyCommand());
         addCommand("pay", new PayCommand(), new PayCommand());
+        addCommand("baltop", new BalTopCommand(), new BalTopCommand());
 
         //REGISTER EVENTS
         getServer().getPluginManager().registerEvents(new JoinHandler(), this);
