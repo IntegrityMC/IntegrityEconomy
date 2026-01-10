@@ -3,3 +3,10 @@ build
 .vscode
 bin
 .idea
+/.apt_generated/
+.classpath
+.factorypath
+.project
+*.prefs
+.settings
+bin

@@ -1,5 +1,6 @@
 package com.github.integritymc.commands;
 
+import com.github.integritymc.CommonUtils;
 import com.github.integritymc.Main;
 import com.github.integritymc.database.UserProfile;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -49,11 +50,12 @@ public class BalTopCommand implements CommandExecutor, TabCompleter {
             int user = ((pages-1)*players)+i;
             if (max_players<=user) break;
             UserProfile userProfile = userProfiles.get(user);
-            Main.getAdventure().sender(commandSender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.baltop-player-format", "<gradient:#c2ccff:#d6e6ff> <color:#8291ff>•</color> {position} <color:#8291ff>→</color> {player} {balance}</gradient>")
+            Main.getAdventure().sender(commandSender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.baltop-player-format", "<gradient:#c2ccff:#d6e6ff> <color:#8291ff>•</color> {position} <color:#8291ff>→</color> {player} {balance} {currency}</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{position}", String.valueOf(i+1))
                     .replace("{player}", userProfile.playerName())
-                    .replace("{balance}", String.valueOf(userProfile.balance()))
+                    .replace("{balance}", CommonUtils.formatAmount(userProfile.balance()))
+                    .replace("{currency}", CommonUtils.currency(userProfile.balance()))
             ));
         }
 

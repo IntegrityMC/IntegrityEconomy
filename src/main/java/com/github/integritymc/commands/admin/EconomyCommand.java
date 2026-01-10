@@ -19,6 +19,7 @@
 
 package com.github.integritymc.commands.admin;
 
+import com.github.integritymc.CommonUtils;
 import com.github.integritymc.Main;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -82,10 +83,11 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             }
 
             Main.getEconomy().depositPlayer(player, amount);
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-give", "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount}!</gradient>")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-give", "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount} {currency}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", playerName)
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", CommonUtils.formatAmount(amount))
+                    .replace("{currency}", CommonUtils.currency(amount))
             ));
         } else if (args.length == 3 && args[0].equalsIgnoreCase("remove")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
@@ -116,10 +118,11 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             }
 
             Main.getEconomy().withdrawPlayer(player, amount);
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-remove", "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} from {player}!</gradient>")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-remove", "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} {currency} from {player}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", playerName)
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", CommonUtils.formatAmount(amount))
+                    .replace("{currency}", CommonUtils.currency(amount))
             ));
         } else if (args.length == 3 && args[0].equalsIgnoreCase("set")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
@@ -142,10 +145,11 @@ public class EconomyCommand implements CommandExecutor, TabCompleter {
             }
 
             Main.getCacheManager().updateBalance(player, amount);
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-set", "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} for {player}!</gradient>")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.eco-set", "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} {currency} for {player}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", playerName)
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", CommonUtils.formatAmount(amount))
+                    .replace("{currency}", CommonUtils.currency(amount))
             ));
         } else {
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-eco", "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset/set> <player> [amount]</gradient>")

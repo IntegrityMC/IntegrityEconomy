@@ -19,6 +19,7 @@
 
 package com.github.integritymc.commands;
 
+import com.github.integritymc.CommonUtils;
 import com.github.integritymc.Main;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -38,9 +39,10 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if (args.length == 0 && (sender instanceof Player player)) {
-            Main.getAdventure().player(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.your-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>You have {balance}</gradient>")
+            Main.getAdventure().player(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.your-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>You have {balance} {currency}</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
+                    .replace("{balance}", CommonUtils.formatAmount(Main.getEconomy().getBalance(player)))
+                    .replace("{currency}", CommonUtils.currency(Main.getEconomy().getBalance(player)))
             ));
         } else if (args.length == 1) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
@@ -53,10 +55,11 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
 
-            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.other-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} have {balance}</gradient>")
+            Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.other-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} have {balance} {currency}</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", playerName)
-                    .replace("{balance}", String.valueOf(Main.getEconomy().getBalance(player)))
+                    .replace("{balance}", CommonUtils.formatAmount(Main.getEconomy().getBalance(player)))
+                    .replace("{currency}", CommonUtils.currency(Main.getEconomy().getBalance(player)))
             ));
         } else {
             Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.usage-balance", "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /balance [player]</gradient>")

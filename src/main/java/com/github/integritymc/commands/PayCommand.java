@@ -19,6 +19,7 @@
 
 package com.github.integritymc.commands;
 
+import com.github.integritymc.CommonUtils;
 import com.github.integritymc.Main;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -87,15 +88,17 @@ public class PayCommand implements CommandExecutor, TabCompleter {
             Main.getEconomy().withdrawPlayer(player, amount);
             Main.getEconomy().depositPlayer(target, amount);
 
-            Main.getAdventure().sender(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount}!</gradient>")
+            Main.getAdventure().sender(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount} {currency}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", target.getName())
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", CommonUtils.formatAmount(amount))
+                    .replace("{currency}", CommonUtils.currency(amount))
             ));
-            Main.getAdventure().sender(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other", "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} from {player}!</gradient>")
+            Main.getAdventure().sender(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other", "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} {currency} from {player}!</gradient>")
                     .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                     .replace("{player}", player.getName())
-                    .replace("{amount}", String.valueOf(amount))
+                    .replace("{amount}", CommonUtils.formatAmount(amount))
+                    .replace("{currency}", CommonUtils.currency(amount))
             ));
         }
 

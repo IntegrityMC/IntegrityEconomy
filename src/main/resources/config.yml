@@ -20,6 +20,7 @@ Economy:
   currencySingolar: "Money"
   first-join-money: 200
   save-minutes: 30
+  decimal-places: 2
 
 Functions:
   BalTop:
@@ -35,22 +36,22 @@ Messages:
   prefix: "<color:#8291ff><b>IE</b></color>" # NO COMMONS
   player-offline: "{prefix} <gradient:#c2ccff:#d6e6ff>The player is offline!</gradient>"
   no-permission: "{prefix} <gradient:#c2ccff:#d6e6ff>You don't have the permission!</gradient>"
-  your-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>You have {balance}</gradient>" # COMMONS - {balance}
-  other-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>{player} have {balance}</gradient>" # COMMONS - {player} - {balance}
+  your-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>You have {balance} {currency}</gradient>" # COMMONS - {balance} {currency}
+  other-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>{player} have {balance} {currency}</gradient>" # COMMONS - {player} - {balance} {currency}
   usage-balance: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /balance [player]</gradient>"
   eco-reset: "{prefix} <gradient:#c2ccff:#d6e6ff>{player}'s balance has been resetted</gradient>" # COMMONS - {player}
   not-enough: "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>" # COMMONS - {player}
-  eco-give: "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
-  eco-set: "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} for {player}!</gradient>" # COMMONS - {player} - {amount}
-  eco-remove: "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
+  eco-give: "{prefix} <gradient:#c2ccff:#d6e6ff>You gave {player} {amount} {currency}!</gradient>" # COMMONS - {player} - {amount} {currency}
+  eco-set: "{prefix} <gradient:#c2ccff:#d6e6ff>You set {amount} {currency} for {player}!</gradient>" # COMMONS - {player} - {amount} {currency}
+  eco-remove: "{prefix} <gradient:#c2ccff:#d6e6ff>You took {amount} {currency} from {player}!</gradient>" # COMMONS - {player} - {amount} {currency}
   usage-eco: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /eco <give/remove/reset/set> <player> [amount]</gradient>"
   player-does-not-exist: "{prefix} <gradient:#c2ccff:#d6e6ff>This player does not exist!</gradient>"
   invalid-number: "{prefix} <gradient:#c2ccff:#d6e6ff>Invalid number formatting!</gradient>"
-  pay-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount}!</gradient>" # COMMONS - {player} - {amount}
-  pay-other: "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} from {player}!</gradient>" # COMMONS - {player} - {amount}
+  pay-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount} {currency}!</gradient>" # COMMONS - {player} - {amount} {currency}
+  pay-other: "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} {currency} from {player}!</gradient>" # COMMONS - {player} - {amount} {currency}
   pay-try-self: "{prefix} <gradient:#c2ccff:#d6e6ff>You cannot pay yourself!</gradient>"
   usage-baltop: "{prefix} <gradient:#c2ccff:#d6e6ff>Usage: /baltop [page]</gradient>"
   baltop-header: "{prefix} <gradient:#c2ccff:#d6e6ff><b>BALANCE TOP</b> • {page}/{max-pages}</gradient>" # COMMONS - {page} {max-pages}
-  baltop-player-format: "<gradient:#c2ccff:#d6e6ff> <color:#8291ff>•</color> {position}° <color:#8291ff>→</color> {player} {balance}</gradient>" # COMMONS - {position} {player} {balance}
+  baltop-player-format: "<gradient:#c2ccff:#d6e6ff> <color:#8291ff>•</color> {position}° <color:#8291ff>→</color> {player} {balance} {currency}</gradient>" # COMMONS - {position} {player} {balance} {currency}
   baltop-footer: "" # COMMONS - {page} {max-pages}
   exceeded-page: "{prefix} <gradient:#c2ccff:#d6e6ff>You have exceeded the maximum page!</gradient>"
