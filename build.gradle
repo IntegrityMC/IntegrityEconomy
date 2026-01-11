@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.github.integritymc'
-version = 'v0.5'
+version = 'v0.6'
 
 repositories {
     mavenCentral()
