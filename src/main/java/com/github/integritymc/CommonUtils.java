@@ -6,12 +6,8 @@ public class CommonUtils {
 	}
 	
 	public static String formatAmount(double balance) {
-		String format;
-		if (balance % 1 == 0)
-			format = String.valueOf((int) balance);
-		else
-			format = String.format("%."+Main.getInstance().getConfig().getInt("Economy.decimal-places", 2)+"f", balance);
-			
-		return format;
+        int decimalPlaces = Main.getInstance().getConfig().getInt("Economy.decimal-places", 2);
+        String formatString = String.format("%%.%df", decimalPlaces);
+		return ((balance % 1 == 0) || (decimalPlaces <= 0)) ? String.valueOf((int) balance) : String.format(formatString, balance);
 	}
 }
