@@ -82,3 +82,7 @@ If you find a bug, please open an [**Issue**](../../issues) including:
 
 This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.  
 See the [LICENSE](./LICENSE) file for full details.
+
+---
+
+![bStats](https://bstats.org/signatures/bukkit/IntegrityEconomy.svg)
