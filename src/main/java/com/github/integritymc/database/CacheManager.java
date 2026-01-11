@@ -87,4 +87,10 @@ public class CacheManager {
         }
         playerCache.put(offlinePlayer, UserProfile.builder().playerName(offlinePlayer.getName()).balance(0).build());
     }
+
+    public boolean existPlayer(OfflinePlayer offlinePlayer) {
+        if (!playerCache.containsKey(offlinePlayer))
+            return Main.getDataManager().existsPlayer(offlinePlayer);
+        return true;
+    }
 }

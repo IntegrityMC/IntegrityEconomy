@@ -71,12 +71,12 @@ public class VaultDialer extends AbstractEconomy {
 
 	@Override
 	public boolean hasAccount(String playerName) {
-		return Main.getCacheManager().getPlayerCache().containsKey(Bukkit.getOfflinePlayer(playerName));
+		return Main.getCacheManager().existPlayer(Bukkit.getOfflinePlayer(playerName));
 	}
 
 	@Override
 	public boolean hasAccount(String playerName, String worldName) {
-        return Main.getCacheManager().getPlayerCache().containsKey(Bukkit.getOfflinePlayer(playerName));
+        return Main.getCacheManager().existPlayer(Bukkit.getOfflinePlayer(playerName));
 	}
 
 	@Override
