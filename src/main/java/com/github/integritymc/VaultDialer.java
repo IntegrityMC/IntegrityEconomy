@@ -66,7 +66,7 @@ public class VaultDialer extends AbstractEconomy {
 
 	@Override
 	public String currencyNameSingular() {
-		return Main.getInstance().getConfig().getString("Economy.currencySingolar");
+		return Main.getInstance().getConfig().getString("Economy.currencySingular");
 	}
 
 	@Override

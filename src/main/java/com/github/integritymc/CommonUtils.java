@@ -21,7 +21,7 @@ package com.github.integritymc;
 
 public class CommonUtils {
 	public static String currency(double amount) {
-		return amount>1 ? Main.getInstance().getConfig().getString("Economy.currencyPlural") : Main.getInstance().getConfig().getString("Economy.currencySingolar");
+		return amount>1 ? Main.getInstance().getConfig().getString("Economy.currencyPlural") : Main.getInstance().getConfig().getString("Economy.currencySingular");
 	}
 	
 	public static String formatAmount(double balance) {

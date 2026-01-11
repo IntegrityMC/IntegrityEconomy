@@ -17,7 +17,7 @@ Database:
 Economy:
   formatted: "{rounded-money} {currency}"
   currencyPlural: "Moneys"
-  currencySingolar: "Money"
+  currencySingular: "Money"
   first-join-money: 200
   save-minutes: 30
   decimal-places: 2
