@@ -1,5 +1,5 @@
 /*
- * IntegrityEconomy - Copyright (C) 2025 IntegrityMC
+ * IntegrityEconomy - Copyright (C) 2026 IntegrityMC
  *
  * This file is part of IntegrityEconomy.
  *
@@ -55,54 +55,57 @@ public class PayCommand implements CommandExecutor, TabCompleter {
                 ));
                 return true;
             }
-
-            if (target == null || !target.isOnline()) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-offline", "{prefix} <gradient:#c2ccff:#d6e6ff>The player is offline!</gradient>")
-                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                ));
-                return true;
-            }
-
-            if (player.getName().equals(target.getName())) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-try-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You cannot pay yourself!</gradient>")
-                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                ));
-                return true;
-            }
-
-            if (!Main.getEconomy().hasAccount(target)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "<red>This player doesn't exist!")
-                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                ));
-                return true;
-            }
-
-            if (!Main.getEconomy().has(target, amount)) {
-                Main.getAdventure().sender(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>")
-                        .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                        .replace("{player}", target.getName())
-                ));
-                return true;
-            }
-
-            Main.getEconomy().withdrawPlayer(player, amount);
-            Main.getEconomy().depositPlayer(target, amount);
-
-            Main.getAdventure().sender(player).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount} {currency}!</gradient>")
-                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{player}", target.getName())
-                    .replace("{amount}", CommonUtils.formatAmount(amount))
-                    .replace("{currency}", CommonUtils.currency(amount))
-            ));
-            Main.getAdventure().sender(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other", "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} {currency} from {player}!</gradient>")
-                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
-                    .replace("{player}", player.getName())
-                    .replace("{amount}", CommonUtils.formatAmount(amount))
-                    .replace("{currency}", CommonUtils.currency(amount))
-            ));
+            pay(player, target, amount);
         }
 
         return false;
+    }
+
+    public static void pay(Player sender, Player target, double amount) {
+        if (target == null || !target.isOnline()) {
+            Main.getAdventure().player(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-offline", "{prefix} <gradient:#c2ccff:#d6e6ff>The player is offline!</gradient>")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+            ));
+            return;
+        }
+
+        if (sender.getName().equals(target.getName())) {
+            Main.getAdventure().player(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-try-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You cannot pay yourself!</gradient>")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+            ));
+            return;
+        }
+
+        if (!Main.getEconomy().hasAccount(target)) {
+            Main.getAdventure().player(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.player-does-not-exist", "<red>This player doesn't exist!")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+            ));
+            return;
+        }
+
+        if (!Main.getEconomy().has(target, amount)) {
+            Main.getAdventure().player(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.not-enough", "{prefix} <gradient:#c2ccff:#d6e6ff>{player} does not have money!</gradient>")
+                    .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                    .replace("{player}", target.getName())
+            ));
+            return;
+        }
+
+        Main.getEconomy().withdrawPlayer(sender, amount);
+        Main.getEconomy().depositPlayer(target, amount);
+
+        Main.getAdventure().player(sender).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-self", "{prefix} <gradient:#c2ccff:#d6e6ff>You paid {player} {amount} {currency}!</gradient>")
+                .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                .replace("{player}", target.getName())
+                .replace("{amount}", CommonUtils.formatAmount(amount))
+                .replace("{currency}", CommonUtils.currency(amount))
+        ));
+        Main.getAdventure().player(target).sendMessage(MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Messages.pay-other", "{prefix} <gradient:#c2ccff:#d6e6ff>You received {amount} {currency} from {player}!</gradient>")
+                .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
+                .replace("{player}", sender.getName())
+                .replace("{amount}", CommonUtils.formatAmount(amount))
+                .replace("{currency}", CommonUtils.currency(amount))
+        ));
     }
 
     @Override

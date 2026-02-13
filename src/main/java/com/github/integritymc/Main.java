@@ -1,5 +1,5 @@
 /*
- * IntegrityEconomy - Copyright (C) 2025 IntegrityMC
+ * IntegrityEconomy - Copyright (C) 2026 IntegrityMC
  *
  * This file is part of IntegrityEconomy.
  *
@@ -25,6 +25,7 @@ import com.github.integritymc.commands.PayCommand;
 import com.github.integritymc.commands.admin.EconomyCommand;
 import com.github.integritymc.database.CacheManager;
 import com.github.integritymc.database.DataManager;
+import com.github.integritymc.handlers.InteractionHandler;
 import com.github.integritymc.handlers.JoinHandler;
 import com.github.integrityupdate.IntegrityUpdater;
 import it.mcnaples.schedulerapi.SchedulerAPI;
@@ -94,6 +95,7 @@ public class Main extends JavaPlugin {
 
         //REGISTER EVENTS
         getServer().getPluginManager().registerEvents(new JoinHandler(), this);
+        getServer().getPluginManager().registerEvents(new InteractionHandler(), this);
     }
 
     @Override

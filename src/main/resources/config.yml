@@ -1,3 +1,5 @@
+config-version: "${version}" # DO NOT TOUCH
+
 Settings:
   updater: true
   bstats: true
@@ -26,6 +28,10 @@ Functions:
   BalTop:
     player-per-pages: 10
     max-pages: 10
+  FastPay:
+    enabled: true
+    title: "{prefix} Fast Pay → {player}" # COMMONS - {player}
+    input-line: 0
 
 #####################################
 #        INTEGRITY - PREFIXES       #
@@ -54,4 +60,12 @@ Messages:
   baltop-header: "{prefix} <gradient:#c2ccff:#d6e6ff><b>BALANCE TOP</b> • {page}/{max-pages}</gradient>" # COMMONS - {page} {max-pages}
   baltop-player-format: "<gradient:#c2ccff:#d6e6ff> <color:#8291ff>•</color> {position}° <color:#8291ff>→</color> {player} {balance} {currency}</gradient>" # COMMONS - {position} {player} {balance} {currency}
   baltop-footer: "" # COMMONS - {page} {max-pages}
-  exceeded-page: "{prefix} <gradient:#c2ccff:#d6e6ff>You have exceeded the maximum page!</gradient>"
+  exceeded-page: "{prefix} <gradient:#c2ccff:#d6e6ff>You have exceeded the maximum page!</gradient>" # COMMONS
+  fastpay-pay-title: "<color:#8291ff><b>SEND MONEY</b></color>" # NO COMMONS
+  fastpay-pay-lore: # NO COMMONS
+    - "<gradient:#c2ccff:#d6e6ff>Click here to pay!</gradient>"
+  fastpay-sign: # NO COMMONS
+    - ""
+    - "↑ ↑ ↑"
+    - "Write the amount"
+    - "of money"

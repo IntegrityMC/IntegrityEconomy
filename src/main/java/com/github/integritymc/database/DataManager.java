@@ -1,5 +1,5 @@
 /*
- * IntegrityEconomy - Copyright (C) 2025 IntegrityMC
+ * IntegrityEconomy - Copyright (C) 2026 IntegrityMC
  *
  * This file is part of IntegrityEconomy.
  *

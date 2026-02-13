@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.github.integritymc'
-version = 'v0.6'
+version = 'v0.7'
 
 repositories {
     mavenCentral()
@@ -50,6 +50,10 @@ dependencies {
 
     //FOLIA
     implementation 'com.github.Fra-McNaples:FoliaScheduler-API:java17-SNAPSHOT'
+
+    //GUI API
+    implementation files('libs/IntegrityGUI.jar')
+    implementation 'de.rapha149.signgui:signgui:2.5.4'
 }
 
 def targetJavaVersion = 17
@@ -75,13 +79,14 @@ shadowJar {
     relocate("net.kyori", "com.github.integritymc.shade.kyori")
     relocate("com.github.integrityupdate", "com.github.integritymc.shade.updater")
     relocate("org.bstats", "com.github.integritymc.shade.bstats")
+    relocate("de.rapha149.signgui", "com.github.integritymc.shade.signgui")
 }
 
 processResources {
     def props = [version: version]
     inputs.properties props
     filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
+    filesMatching(['plugin.yml', 'config.yml']) {
         expand props
     }
 }
