@@ -67,7 +67,6 @@ public class Main extends JavaPlugin {
 
         IntegrityUpdater.init(this);
 
-        //REMOVE THAT UPDATER IF YOU WANT TO FORK IT (LICENSE CONFLICT) GPLv3-IMCPL
         if (getConfig().getBoolean("Settings.updater", true))
             IntegrityUpdater.getUpdateChecker().updateMessage();
         
