@@ -68,6 +68,22 @@ To submit a **pull request**, follow these steps:
 
 ---
 
+## ⚖️ Licensing Agreement for Contributors
+
+By contributing to **IntegrityEconomy**, you agree to the following terms:
+
+* **Initial License:** All contributions are submitted under the MPL 2.0 (Mozilla Public License 2.0).
+* **Relicensing Rights:** By submitting a Pull Request, you grant the project owner organization (IntegrityMC) the absolute and irrevocable right to redistribute your contributions under any other license in the future.
+* **Scope of Changes:** This includes, but is not limited to, changing the project license to:
+    * **Strong Copyleft:** GNU GPL (v3 or later);
+    * **Permissive:** MIT, Apache 2.0, or BSD;
+    * **Proprietary:** Closed-source or commercial licenses.
+* **Discretion:** Such changes can be made at the organization's sole discretion without further notice to or consent from the contributors.
+
+This agreement ensures that the IntegrityMC organization maintains full flexibility to evolve the project and its licensing model as needed to protect the software and its community.
+
+---
+
 ## 🐞 Reporting Issues
 
 If you find a bug, please open an [**Issue**](../../issues) including:

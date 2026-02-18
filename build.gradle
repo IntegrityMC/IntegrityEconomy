@@ -80,6 +80,10 @@ shadowJar {
     relocate("com.github.integrityupdate", "com.github.integritymc.shade.updater")
     relocate("org.bstats", "com.github.integritymc.shade.bstats")
     relocate("de.rapha149.signgui", "com.github.integritymc.shade.signgui")
+    from("LICENSE")
+
+    exclude("README")
+    from("README.md")
 }
 
 processResources {
