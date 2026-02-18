@@ -96,7 +96,7 @@ If you find a bug, please open an [**Issue**](../../issues) including:
 
 ## 📜 License
 
-This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.  
+This project is licensed under the **Mozilla Public License 2.0 (MPL 2.0)**.  
 See the [LICENSE](./LICENSE) file for full details.
 
 ---
