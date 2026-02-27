@@ -76,13 +76,13 @@ public class Main extends JavaPlugin {
         cacheManager.update();
 
         //REGISTER COMMANDS
-        if (getConfig().getBoolean("Functions.Commands.Balance.enabled"))
+        if (getConfig().getBoolean("Functions.Commands.Balance.enabled", true))
             addCommand("balance", new BalanceCommand(), new BalanceCommand());
-        if (getConfig().getBoolean("Functions.Commands.Eco.enabled"))
+        if (getConfig().getBoolean("Functions.Commands.Eco.enabled", true))
             addCommand("eco", new EconomyCommand(), new EconomyCommand());
-        if (getConfig().getBoolean("Functions.Commands.Pay.enabled"))
+        if (getConfig().getBoolean("Functions.Commands.Pay.enabled", true))
             addCommand("pay", new PayCommand(), new PayCommand());
-        if (getConfig().getBoolean("Functions.Commands.BalTop.enabled"))
+        if (getConfig().getBoolean("Functions.Commands.BalTop.enabled", true))
             addCommand("baltop", new BalTopCommand(), new BalTopCommand());
 
         //REGISTER EVENTS
