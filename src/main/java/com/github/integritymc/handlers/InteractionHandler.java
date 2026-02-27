@@ -29,14 +29,14 @@ import java.util.List;
 public class InteractionHandler implements Listener {
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (!Main.getInstance().getConfig().getBoolean("Functions.FastPay.enabled")) return;
+        if (!Main.getInstance().getConfig().getBoolean("Functions.Interaction.FastPay.enabled")) return;
         if (!(event.getRightClicked() instanceof Player target)) return;
 
         Player sender = event.getPlayer();
         if (sender.getInventory().getItemInMainHand().getType() != Material.AIR) return;
 
         IntegrityGUI gui = new IntegrityGUI(Main.getInstance(), sender, CommonUtils.legacyBuilder().serialize(
-                MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Functions.FastPay.title", "{prefix} Fast Pay → {player}")
+                MiniMessage.miniMessage().deserialize(Main.getInstance().getConfig().getString("Functions.Interaction.FastPay.title", "{prefix} Fast Pay → {player}")
                         .replace("{prefix}", Main.getInstance().getConfig().getString("Messages.prefix", "<color:#8291ff><b>IE</b></color>"))
                         .replace("{player}", target.getName())
                 )
@@ -70,7 +70,7 @@ public class InteractionHandler implements Listener {
                     )
                     .setType(Material.OAK_SIGN)
                     .setHandler((p, result) -> {
-                        int inputLine = Main.getInstance().getConfig().getInt("Functions.FastPay.input-line", 0);
+                        int inputLine = Main.getInstance().getConfig().getInt("Functions.Interaction.FastPay.input-line", 0);
                         String input = result.getLineWithoutColor(inputLine);
                         double inputDouble = inputDouble(input);
 

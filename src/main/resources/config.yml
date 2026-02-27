@@ -25,13 +25,22 @@ Economy:
   decimal-places: 2
 
 Functions:
-  BalTop:
-    player-per-pages: 10
-    max-pages: 10
-  FastPay:
-    enabled: true
-    title: "{prefix} Fast Pay → {player}" # COMMONS - {player}
-    input-line: 0
+  Commands:
+    Eco:
+      enabled: true
+    Balance:
+      enabled: true
+    Pay:
+      enabled: true
+    BalTop:
+      enabled: true
+      player-per-pages: 10
+      max-pages: 10
+  Interaction:
+    FastPay:
+      enabled: true
+      title: "{prefix} Fast Pay → {player}" # COMMONS - {player}
+      input-line: 0
 
 #####################################
 #        INTEGRITY - PREFIXES       #
